@@ -1,0 +1,28 @@
+header {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.title {
+    font-size: 65px;
+    font-weight: 600;
+}
+
+section {
+    padding: 20px 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.block {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.content-box {
+    border: 2px solid lightgray;
+    padding: 40px;
+    border-radius: 8px;
+}
