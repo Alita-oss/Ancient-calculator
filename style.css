@@ -26,3 +26,16 @@ section {
     padding: 40px;
     border-radius: 8px;
 }
+
+.content-box-row {
+    display: flex;
+}
+
+.content-box-row-color {
+    color: lightseagreen;
+    padding: 7px;
+}
+
+.content-box-number {
+    padding: 7px;
+}
