@@ -34,8 +34,11 @@ section {
 .content-box-row-color {
     color: lightseagreen;
     padding: 7px;
+    width: 50%;
 }
 
 .content-box-number {
     padding: 7px;
+    text-transform: capitalize;
+    width: 50%;
 }
