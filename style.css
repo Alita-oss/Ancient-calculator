@@ -42,3 +42,23 @@ section {
     text-transform: capitalize;
     width: 50%;
 }
+
+.inputs {
+    display:flex;
+    flex-direction: column;
+}
+
+input {
+   
+}
+
+.lineHr {
+    color: lightgray;
+}
+
+.equals {
+    display: flex;
+    justify-content: center;
+    color: lightgray;
+    font-size: 80px;
+}

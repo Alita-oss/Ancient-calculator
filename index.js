@@ -3,8 +3,52 @@ window.onload = function() {
     const mainOptionsList = [
         { 
             name: 'palec',
-            equation: (amount = 1, metry = 1) => {
-                return amount * 0.0254 * metry;
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 0.0254 * baseUnit;
+            },
+
+            name: 'loket',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 0.59 * baseUnit;
+            },
+
+            name: 'hon',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 1.25 * baseUnit;
+            },
+
+            name: 'sud',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 244 * baseUnit;
+            },
+
+            name: 'číška',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 1.45 * baseUnit;
+            },
+
+            name: 'vědro',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 56.6 * baseUnit;
+            },
+
+            name: 'máz',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 1.91 * baseUnit;
+            },
+
+            name: 'míle',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 1.61 * baseUnit;
+            },
+            name: 'feet',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 30.48 * baseUnit;
+            },
+
+            name: 'yard',
+            equation: (amount = 1, baseUnit = 1) => {
+                return amount * 0.914 * baseUnit;
             },
         }
     ];
@@ -14,6 +58,11 @@ window.onload = function() {
         centimetr: 100,
         metr: 1,
         kilometr: 0.001,
+        mililitr: 1000,
+        centilitr: 100,
+        decilitr: 10,
+        litr: 1,
+        hektolitr: 0.01,
     };
     
 
