@@ -16,7 +16,7 @@ section {
 
 .block {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     width: 100%;
     max-width: 1000px;
 }
@@ -44,11 +44,14 @@ section {
 }
 
 .inputs {
-    display:flex;
+    display: flex;
     flex-direction: column;
+    height: 130px;
+    gap: 15%;
 }
 
 input {
+   
    
 }
 
@@ -61,4 +64,5 @@ input {
     justify-content: center;
     color: lightgray;
     font-size: 80px;
+    height: 100%;
 }
