@@ -4,7 +4,7 @@ window.onload = function() {
         {   
             name: 'palec',
             equation: (amount = 1, baseUnit = 1) => {
-                return amount * 0.0254 * baseUnit;
+                return amount * 0.1 * baseUnit;
             },
         },
         {
@@ -16,7 +16,7 @@ window.onload = function() {
         {
             name: 'hon',
             equation: (amount = 1, baseUnit = 1) => {
-                return amount * 1.25 * baseUnit;
+                return amount * 125 * baseUnit;
             },
         },
         {
@@ -52,7 +52,7 @@ window.onload = function() {
         {
             name: 'feet',
             equation: (amount = 1, baseUnit = 1) => {
-                return amount * 30.48 * baseUnit;
+                return amount * 0.3048 * baseUnit;
             },
         },
         {
@@ -63,11 +63,14 @@ window.onload = function() {
         },     
     ];
 
-    const modernOptions = {
+    const modernOptionsLenght = {
         milimetr: 1000,
         centimetr: 100,
         metr: 1,
         kilometr: 0.001,
+    };
+
+    const modernOptionsVolume = {
         mililitr: 1000,
         centilitr: 100,
         decilitr: 10,
@@ -84,7 +87,7 @@ window.onload = function() {
         const userInput = event.target.value;
         const baseIndex = mainOptionsList.findIndex((x) => x.name == 'míle');
 
-        for (const [key, value] of Object.entries(modernOptions)) {
+        for (const [key, value] of Object.entries(modernOptionsLenght, modernOptionsVolume)) {
             const result = document.getElementById(key);
             result.innerHTML = mainOptionsList[baseIndex].equation(userInput, value);
         }
@@ -93,7 +96,7 @@ window.onload = function() {
     const optionsFactory = (showAll = false) => {
         const baseIndex = mainOptionsList.findIndex((x) => x.name == 'míle');
 
-        for (const [key, value] of Object.entries(modernOptions)) {
+        for (const [key, value] of Object.entries(modernOptionsLenght, modernOptionsVolume)) {
             const div = document.createElement('div');
             div.classList.add('content-box-row');
 
