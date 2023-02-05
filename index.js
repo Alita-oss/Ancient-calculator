@@ -1,5 +1,4 @@
 window.onload = function() {
-    console.log('Hello')
     const mainOptionsList = [
         {   
             name: 'palec',
@@ -63,7 +62,7 @@ window.onload = function() {
         },     
     ];
 
-    const modernOptionsLenght = {
+    const modernOptionsLength = {
         milimetr: 1000,
         centimetr: 100,
         metr: 1,
@@ -82,21 +81,44 @@ window.onload = function() {
     };
     
     const numberInput = document.getElementById('numberInput');
+    let activeLengthUnit = 'palec';
+    const ancientLengthInput = document.getElementById('ancientLengthInput');
+    let userLengthInput = 1.0;
 
-    const onInput = (event) => {
-        const userInput = event.target.value;
-        const baseIndex = mainOptionsList.findIndex((x) => x.name == 'míle');
+    const updateModernOptions = () => {
+        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
 
-        for (const [key, value] of Object.entries(modernOptionsLenght, modernOptionsVolume)) {
+        for (const [key, value] of Object.entries(modernOptionsLength)) {
             const result = document.getElementById(key);
-            result.innerHTML = mainOptionsList[baseIndex].equation(userInput, value);
+            result.innerHTML = mainOptionsList[baseIndex].equation(userLengthInput, value);
         }
     };
 
-    const optionsFactory = (showAll = false) => {
-        const baseIndex = mainOptionsList.findIndex((x) => x.name == 'míle');
+    const onInput = (event) => {
+        const userInput = event.target.value;
+        userLengthInput = userInput;
+        updateModernOptions();
+    };
 
-        for (const [key, value] of Object.entries(modernOptionsLenght, modernOptionsVolume)) {
+    const ancientLengthClick = (event) => {
+        const id = event.target.id;
+        updateAncientLengthUnit(id);
+        updateModernOptions();
+    };
+
+    const updateAncientLengthUnit = (newUnit) => {
+        activeLengthUnit = newUnit;
+        ancientLengthInput.value = newUnit;
+    };
+
+    const optionsFactory = (showAll = false) => {
+        updateAncientLengthUnit('palec');
+        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
+        const ancientLengthList = document.getElementById('ancientLengthOptions');
+
+
+        // Builds initial modern options
+        for (const [key, value] of Object.entries(modernOptionsLength)) {
             const div = document.createElement('div');
             div.classList.add('content-box-row');
 
@@ -113,7 +135,16 @@ window.onload = function() {
 
             const parent = document.getElementById('optionsBox');
             parent.append(div);
-        }      
+        }
+        
+        // Builds ancient options for select
+        ['palec', 'loket', 'hon'].forEach((lengthUnit) => {
+            const li = document.createElement('li');
+            li.id = lengthUnit;
+            li.innerHTML = lengthUnit;
+            li.addEventListener('click', ancientLengthClick, false);
+            ancientLengthList.append(li);
+        });
     };
 
     optionsFactory();
