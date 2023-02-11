@@ -142,6 +142,7 @@ window.onload = function() {
             const li = document.createElement('li');
             li.id = lengthUnit;
             li.innerHTML = lengthUnit;
+            li.classList.add('ancient-options');
             li.addEventListener('click', ancientLengthClick, false);
             ancientLengthList.append(li);
         });
