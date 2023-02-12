@@ -70,3 +70,7 @@ input {
 .ancient-options {
     background-color: white;
 }
+
+.hidden {
+    display: none;
+}

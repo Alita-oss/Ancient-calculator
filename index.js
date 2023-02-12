@@ -84,6 +84,8 @@ window.onload = function() {
     let activeLengthUnit = 'palec';
     const ancientLengthInput = document.getElementById('ancientLengthInput');
     let userLengthInput = 1.0;
+    const ancientLengthOptions = document.getElementById('ancientLengthOptions');
+    const ancientVolumeOptions = document.getElementById('ancientVolumeOptions');
 
     const updateModernOptions = () => {
         const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
@@ -104,6 +106,7 @@ window.onload = function() {
         const id = event.target.id;
         updateAncientLengthUnit(id);
         updateModernOptions();
+        ancientLengthOptions.classList.add('hidden');
     };
 
     const updateAncientLengthUnit = (newUnit) => {
@@ -111,14 +114,29 @@ window.onload = function() {
         ancientLengthInput.value = newUnit;
     };
 
-    const optionsFactory = (showAll = false) => {
-        updateAncientLengthUnit('palec');
-        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
-        const ancientLengthList = document.getElementById('ancientLengthOptions');
+    const onLengthSelectClick = () => {
+        ancientLengthOptions.classList.remove('hidden');
+    };
 
+    const buildOptions = (type) => {
+        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
+        const object = {
+            lengths: {
+                modernOptions: modernOptionsLength,
+                modernParent: 'optionsBox',
+                ancientOptions: ['palec', 'loket', 'hon'],
+                ancientParent: ancientLengthOptions,
+            }, 
+            volumes: {
+                modernOptions: modernOptionsVolume,
+                modernParent: 'optionsVolumeBox',
+                ancientOptions: [],
+                ancientParent: ancientVolumeOptions,
+            },
+        };
 
         // Builds initial modern options
-        for (const [key, value] of Object.entries(modernOptionsLength)) {
+        for (const [key, value] of Object.entries(object[type].modernOptions)) {
             const div = document.createElement('div');
             div.classList.add('content-box-row');
 
@@ -133,22 +151,32 @@ window.onload = function() {
 
             div.append(name, result);
 
-            const parent = document.getElementById('optionsBox');
+            const parent = document.getElementById(object[type].modernParent);
             parent.append(div);
         }
-        
+
         // Builds ancient options for select
-        ['palec', 'loket', 'hon'].forEach((lengthUnit) => {
+        object[type].ancientOptions.forEach((lengthUnit) => {
             const li = document.createElement('li');
             li.id = lengthUnit;
             li.innerHTML = lengthUnit;
             li.classList.add('ancient-options');
+            if (lengthUnit == activeLengthUnit) {
+                li.classList.add('hidden');
+            }
             li.addEventListener('click', ancientLengthClick, false);
-            ancientLengthList.append(li);
+            object[type].ancientParent.append(li);
         });
+    };
+
+    const optionsFactory = (showAll = false) => {
+        updateAncientLengthUnit('palec');
+        buildOptions('volumes');
+        buildOptions('lengths'); 
     };
 
     optionsFactory();
 
     numberInput.addEventListener('input', onInput, false);
+    ancientLengthInput.addEventListener('click', onLengthSelectClick, false);
 };
