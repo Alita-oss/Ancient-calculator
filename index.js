@@ -82,17 +82,23 @@ window.onload = function() {
     
     const numberInput = document.getElementById('numberInput');
     let activeLengthUnit = 'palec';
+    let activeVolumeUnit = 'vědro';
     const ancientLengthInput = document.getElementById('ancientLengthInput');
+    const ancientVolumeInput = document.getElementById('ancientVolumeInput');
     let userLengthInput = 1.0;
+    let userVolumeInput = 1.0;
     const ancientLengthOptions = document.getElementById('ancientLengthOptions');
     const ancientVolumeOptions = document.getElementById('ancientVolumeOptions');
 
-    const updateModernOptions = () => {
-        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
+    const updateModernOptions = (type) => {
+        const modernOptions = type == 'lengths' ? modernOptionsLength : modernOptionsVolume;
+        const userInput = type == 'lengths' ? userLengthInput : userVolumeInput;
+        const activeUnit = type == 'lengths' ? activeLengthUnit : activeVolumeUnit;
+        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeUnit);
 
-        for (const [key, value] of Object.entries(modernOptionsLength)) {
+        for (const [key, value] of Object.entries(modernOptions)) {
             const result = document.getElementById(key);
-            result.innerHTML = mainOptionsList[baseIndex].equation(userLengthInput, value);
+            result.innerHTML = mainOptionsList[baseIndex].equation(userInput, value);
         }
     };
 
@@ -105,21 +111,49 @@ window.onload = function() {
     const ancientLengthClick = (event) => {
         const id = event.target.id;
         updateAncientLengthUnit(id);
-        updateModernOptions();
+        updateModernOptions('lengths');
         ancientLengthOptions.classList.add('hidden');
     };
 
+    const ancientVolumeClick = (event) => {
+        const id = event.target.id;
+        updateAncientVolumeUnit(id);
+        updateModernOptions('volumes');
+        ancientVolumeOptions.classList.add('hidden');
+    };
+
     const updateAncientLengthUnit = (newUnit) => {
+        const tempActiveUnit = activeLengthUnit;
         activeLengthUnit = newUnit;
         ancientLengthInput.value = newUnit;
+        const previousLi = document.getElementById(tempActiveUnit);
+        const nextLi = document.getElementById(activeLengthUnit); 
+        previousLi.classList.remove('hidden');
+        nextLi.classList.add('hidden');
+    };
+
+    const updateAncientVolumeUnit = (newUnit) => {
+        const tempActiveUnit = activeVolumeUnit;
+        activeVolumeUnit = newUnit;
+        ancientVolumeInput.value = newUnit;
+        const previousLi = document.getElementById(tempActiveUnit);
+        const nextLi = document.getElementById(activeVolumeUnit); 
+        previousLi.classList.remove('hidden');
+        nextLi.classList.add('hidden');
     };
 
     const onLengthSelectClick = () => {
         ancientLengthOptions.classList.remove('hidden');
     };
 
+    const onVolumeSelectClick = () => {
+        ancientVolumeOptions.classList.remove('hidden');
+    };
+
     const buildOptions = (type) => {
-        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeLengthUnit);
+        const activeUnit = type == 'lengths' ? activeLengthUnit : activeVolumeUnit;
+        const ancientClick = type  == 'lengths' ? ancientLengthClick : ancientVolumeClick;
+        const baseIndex = mainOptionsList.findIndex((x) => x.name == activeUnit);
         const object = {
             lengths: {
                 modernOptions: modernOptionsLength,
@@ -130,7 +164,7 @@ window.onload = function() {
             volumes: {
                 modernOptions: modernOptionsVolume,
                 modernParent: 'optionsVolumeBox',
-                ancientOptions: [],
+                ancientOptions: ['sud', 'číška', 'vědro', 'máz'],
                 ancientParent: ancientVolumeOptions,
             },
         };
@@ -161,16 +195,17 @@ window.onload = function() {
             li.id = lengthUnit;
             li.innerHTML = lengthUnit;
             li.classList.add('ancient-options');
-            if (lengthUnit == activeLengthUnit) {
+            if (lengthUnit == activeUnit) {
                 li.classList.add('hidden');
             }
-            li.addEventListener('click', ancientLengthClick, false);
+            li.addEventListener('click', ancientClick, false);
             object[type].ancientParent.append(li);
         });
     };
 
     const optionsFactory = (showAll = false) => {
-        updateAncientLengthUnit('palec');
+        ancientLengthInput.value = activeLengthUnit;
+        ancientVolumeInput.value = activeVolumeUnit;
         buildOptions('volumes');
         buildOptions('lengths'); 
     };
@@ -179,4 +214,5 @@ window.onload = function() {
 
     numberInput.addEventListener('input', onInput, false);
     ancientLengthInput.addEventListener('click', onLengthSelectClick, false);
+    ancientVolumeInput.addEventListener('click', onVolumeSelectClick, false);
 };

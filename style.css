@@ -69,8 +69,21 @@ input {
 
 .ancient-options {
     background-color: white;
+    padding: 8px;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+.ancient-options:nth-child(odd) {
+    background-color: lightgrey;
 }
 
 .hidden {
     display: none;
+}
+
+.styleInput {
+    text-transform: capitalize;
+    padding: 5px 5px 5px;
+    cursor: pointer;
 }
