@@ -25,6 +25,7 @@ section {
     border: 2px solid lightgray;
     padding: 40px;
     border-radius: 8px;
+    width: 350px;
 }
 
 .content-box-row {
@@ -33,12 +34,12 @@ section {
 
 .content-box-row-color {
     color: lightseagreen;
-    padding: 7px;
+    padding: 5px 4px 4px 5px;
     width: 50%;
 }
 
 .content-box-number {
-    padding: 7px;
+    padding: 5px 4px 4px 5px;
     text-transform: capitalize;
     width: 50%;
 }
@@ -78,6 +79,10 @@ input {
     background-color: lightgrey;
 }
 
+.ancient-options:hover {
+    background-color: darkgray;
+}
+
 .hidden {
     display: none;
 }
@@ -86,4 +91,11 @@ input {
     text-transform: capitalize;
     padding: 5px 5px 5px;
     cursor: pointer;
+}
+
+.subtitle {
+    font-size: 40px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
 }

@@ -81,6 +81,7 @@ window.onload = function() {
     };
     
     const numberInput = document.getElementById('numberInput');
+    const numberVolumeInput = document.getElementById('numberVolumeInput');
     let activeLengthUnit = 'palec';
     let activeVolumeUnit = 'vědro';
     const ancientLengthInput = document.getElementById('ancientLengthInput');
@@ -105,6 +106,12 @@ window.onload = function() {
     const onInput = (event) => {
         const userInput = event.target.value;
         userLengthInput = userInput;
+        updateModernOptions();
+    };
+    
+    const onVolumeInput = (event) => {
+        const userInput = event.target.value;
+        userVolumeInput = userInput;
         updateModernOptions();
     };
 
@@ -213,6 +220,7 @@ window.onload = function() {
     optionsFactory();
 
     numberInput.addEventListener('input', onInput, false);
+    numberVolumeInput.addEventListener('input', onVolumeInput, false);
     ancientLengthInput.addEventListener('click', onLengthSelectClick, false);
     ancientVolumeInput.addEventListener('click', onVolumeSelectClick, false);
 };
