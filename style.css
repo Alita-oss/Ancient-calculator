@@ -21,11 +21,27 @@ section {
     max-width: 1000px;
 }
 
+@media (max-width: 600px) {
+    .block {
+        flex-direction: column;
+
+    }
+}
+
 .content-box {
     border: 2px solid lightgray;
     padding: 40px;
     border-radius: 8px;
-    width: 350px;
+}
+
+.ancient-box {
+    width: 50%;
+}
+
+@media (max-width: 600px) {
+    .ancient-box {
+        width: auto;
+    }
 }
 
 .content-box-row {
@@ -51,11 +67,6 @@ section {
     gap: 15%;
 }
 
-input {
-   
-   
-}
-
 .lineHr {
     color: lightgray;
 }
@@ -73,10 +84,6 @@ input {
     padding: 8px;
     cursor: pointer;
     text-transform: capitalize;
-}
-
-.ancient-options:nth-child(odd) {
-    background-color: lightgrey;
 }
 
 .ancient-options:hover {

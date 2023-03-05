@@ -80,7 +80,7 @@ window.onload = function() {
         metr_krychlový: 1,
     };
     
-    const numberInput = document.getElementById('numberInput');
+    const numberLengthInput = document.getElementById('numberLengthInput');
     const numberVolumeInput = document.getElementById('numberVolumeInput');
     let activeLengthUnit = 'palec';
     let activeVolumeUnit = 'vědro';
@@ -91,6 +91,10 @@ window.onload = function() {
     const ancientLengthOptions = document.getElementById('ancientLengthOptions');
     const ancientVolumeOptions = document.getElementById('ancientVolumeOptions');
 
+    const formatNumber = (number) => {
+        return new Intl.NumberFormat().format(number);
+    };
+
     const updateModernOptions = (type) => {
         const modernOptions = type == 'lengths' ? modernOptionsLength : modernOptionsVolume;
         const userInput = type == 'lengths' ? userLengthInput : userVolumeInput;
@@ -99,20 +103,20 @@ window.onload = function() {
 
         for (const [key, value] of Object.entries(modernOptions)) {
             const result = document.getElementById(key);
-            result.innerHTML = mainOptionsList[baseIndex].equation(userInput, value);
+            result.innerHTML = formatNumber(mainOptionsList[baseIndex].equation(userInput, value));
         }
     };
 
-    const onInput = (event) => {
+    const onLengthInput = (event) => {
         const userInput = event.target.value;
         userLengthInput = userInput;
-        updateModernOptions();
+        updateModernOptions('lengths');
     };
     
     const onVolumeInput = (event) => {
         const userInput = event.target.value;
         userVolumeInput = userInput;
-        updateModernOptions();
+        updateModernOptions('volumes');
     };
 
     const ancientLengthClick = (event) => {
@@ -188,7 +192,7 @@ window.onload = function() {
             const result = document.createElement('p');
             result.id = key;
             result.classList.add('content-box-row-color');
-            result.innerHTML = mainOptionsList[baseIndex].equation(1, value);
+            result.innerHTML = formatNumber(mainOptionsList[baseIndex].equation(1, value));
 
             div.append(name, result);
 
@@ -219,7 +223,7 @@ window.onload = function() {
 
     optionsFactory();
 
-    numberInput.addEventListener('input', onInput, false);
+    numberLengthInput.addEventListener('input', onLengthInput, false);
     numberVolumeInput.addEventListener('input', onVolumeInput, false);
     ancientLengthInput.addEventListener('click', onLengthSelectClick, false);
     ancientVolumeInput.addEventListener('click', onVolumeSelectClick, false);
